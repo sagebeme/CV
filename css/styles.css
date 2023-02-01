@@ -1,0 +1,19 @@
+body
+        {
+            background-color: papayawhip;
+            
+        }
+        hr
+        {
+            border-color: darkgray;
+            border-width: 5px;
+            border-style: dotted none none;
+            width: 5%;
+            
+        }
+        h1,h3{
+            color: #5BC0F8;
+}
+        img{
+            width: 50%;
+        }
