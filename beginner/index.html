@@ -1,0 +1,109 @@
+<style>
+    body{
+        margin: 0;
+        background-color: black;
+        font-family: sans-serif;
+    }
+</style>
+<div style="
+        position: absolute;
+        color: aquamarine;
+        padding: 8px;
+        font-size: 14;
+        user-select: none;
+        ">
+    <span>Score: <span id="scoreId">0</span></span>
+</div>
+
+<div
+    id="modalEl"
+        style="
+        display: none;
+        position: absolute;
+        background-color: white;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        left: 50%;
+        padding: 15px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        border-radius: 5px;
+     ">
+    <label
+        style="
+        font-size: 20px;
+        color: gray;
+        ">
+        Game Over
+    </label>
+    <h1
+        id="modalScoreEl"
+        style="
+            font-size: 48px;
+            margin-top: 8px;
+            margin-bottom: 0;
+        ">
+        0
+    </h1>
+    <p
+        style="
+            margin: 0;
+            font-size: 20px;
+            color: gray;
+            ">
+        points
+    </p>
+    <button
+    id="buttonEl"
+    style="
+        margin-top: 13px;
+        background-color: rgb(51, 0, 255);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    "
+    >Restart Game</button>
+</div>
+<div
+    id="startModalEl"
+        style="
+        position: absolute;
+        background-color: white;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        left: 50%;
+        padding: 15px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        border-radius: 5px;
+     ">
+    <h1
+        style="
+            font-size: 24px;
+            margin-top: 8px;
+            margin-bottom: 0;
+        ">
+        Home Defend Game
+    </h1>
+    <button
+    id="startButtonEl"
+    style="
+        margin-top: 13px;
+        background-color: rgb(51, 0, 255);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    "
+    >Start Game</button>
+</div>
+<canvas>
+</canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js" integrity="sha512-EZI2cBcGPnmR89wTgVnN3602Yyi7muWo8y1B3a8WmIv1J9tYG+udH4LvmYjLiGp37yHB7FfaPBo8ly178m9g4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="./index.js"></script>
