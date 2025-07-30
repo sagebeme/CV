@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Mini Dungeon Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1 class="game-title">🏰 Mini Dungeon Adventure</h1>
+        </div>
+
+        <div class="game-stats">
+            <div class="stat">
+                <span>❤️ Health:</span>
+                <span id="health">100</span>
+            </div>
+            <div class="stat">
+                <span>💰 Gold:</span>
+                <span id="gold">0</span>
+            </div>
+            <div class="stat">
+                <span>🗡️ Score:</span>
+                <span id="score">0</span>
+            </div>
+            <div class="stat">
+                <span>📍 Position:</span>
+                <span id="position">(0, 0)</span>
+            </div>
+        </div>
+
+        <div class="dungeon-grid" id="dungeonGrid"></div>
+
+        <div class="controls">
+            <h3>🎮 Controls</h3>
+            <p>Use arrow keys to move around the dungeon</p>
+            <div class="arrow-keys">
+                <div class="key" data-key="ArrowUp">↑</div>
+                <div class="key" data-key="ArrowLeft">←</div>
+                <div class="key" data-key="ArrowDown">↓</div>
+                <div class="key" data-key="ArrowRight">→</div>
+            </div>
+        </div>
+
+        <div class="event-log">
+            <h3>📜 Adventure Log</h3>
+            <div id="eventLog">
+                <div class="event move">🚀 Welcome to the dungeon! Use arrow keys to explore.</div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="reset-btn" onclick="resetGame()">🔄 New Adventure</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
