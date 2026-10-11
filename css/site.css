@@ -294,9 +294,9 @@ a:focus-visible,
 }
 
 .hero img {
-  width: 188px;
-  height: 188px;
-  border-radius: 50%;
+  width: 176px;
+  height: 200px;
+  border-radius: 4px;
   object-fit: cover;
   border: 6px solid var(--surface);
   box-shadow: 10px 12px 0 -2px var(--accent-soft), 0 1px 0 1px var(--edge);
@@ -677,7 +677,7 @@ section::before {
 
   .hero img {
     width: 112px;
-    height: 112px;
+    height: 128px;
     margin-top: 0;
   }
 
