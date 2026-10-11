@@ -463,6 +463,24 @@ section::before {
   margin-bottom: 0.35em;
 }
 
+/* Clicking anywhere on a card with a case study opens it; other links sit above. */
+.card .case-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.card a:not(.case-link),
+.card .links .live {
+  position: relative;
+  z-index: 2;
+}
+
+.card:has(.case-link) {
+  cursor: pointer;
+}
+
 .card .links {
   margin-top: auto;
   display: flex;
