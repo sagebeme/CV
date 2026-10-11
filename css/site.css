@@ -88,17 +88,6 @@ h2 {
   margin-bottom: 1.25rem;
 }
 
-/* Short ochre tick before section headings, thicker than the rules around it. */
-section h2::before {
-  content: "";
-  display: block;
-  width: 36px;
-  height: 4px;
-  margin-bottom: 14px;
-  background: var(--accent);
-  border-radius: 2px 1px 3px 1px;
-  transform: rotate(-1.5deg);
-}
 
 h3 {
   font-size: 1.15rem;
@@ -180,7 +169,114 @@ a:focus-visible,
 /* Hero */
 
 .hero {
-  padding: 72px 0 56px;
+  position: relative;
+  padding: 56px 0 0;
+}
+
+.hello {
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--accent);
+  margin: 0 0 10px;
+  transform: rotate(-3deg);
+  transform-origin: left bottom;
+  display: inline-block;
+}
+
+.aside {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: "Caveat", cursive;
+  font-size: 1.35rem;
+  color: var(--muted);
+  text-decoration-style: wavy;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.aside:hover {
+  color: var(--accent);
+}
+
+.me {
+  margin: 28px 0 0;
+  text-align: center;
+}
+
+.me figcaption {
+  font-family: "Caveat", cursive;
+  font-size: 1.3rem;
+  color: var(--muted);
+  margin-top: 14px;
+  transform: rotate(-4deg) translateX(-18px);
+}
+
+.me figcaption::before {
+  content: "↑ ";
+  color: var(--accent);
+}
+
+/* Hand-drawn hills under the hero: a nod to the old mountain, in the new palette. */
+.scenery {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 190px;
+  margin-top: 8px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.scenery .ridge {
+  stroke: var(--accent);
+  stroke-width: 2.6;
+}
+
+.scenery .ridge-back {
+  stroke: var(--slate);
+  stroke-width: 1.1;
+  opacity: 0.55;
+}
+
+.scenery .hatch {
+  stroke: var(--accent);
+  stroke-width: 0.9;
+  opacity: 0.6;
+}
+
+.scenery .snow {
+  stroke: var(--accent);
+  stroke-width: 1.2;
+}
+
+.scenery .sun {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 1.4;
+  stroke-dasharray: 90 8;
+}
+
+.scenery .cloud path {
+  fill: var(--surface);
+  stroke: var(--muted);
+  stroke-width: 1.2;
+}
+
+.scenery .cloud-a {
+  animation: drift 38s ease-in-out infinite alternate;
+}
+
+.scenery .cloud-b {
+  animation: drift 52s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from { transform: translateX(-24px); }
+  to { transform: translateX(36px); }
 }
 
 .hero .wrap {
@@ -188,6 +284,7 @@ a:focus-visible,
   grid-template-columns: 1fr auto;
   gap: 56px;
   align-items: start;
+  padding-top: 16px;
 }
 
 .hero .lede {
@@ -199,7 +296,6 @@ a:focus-visible,
 .hero img {
   width: 176px;
   height: 200px;
-  margin-top: 28px;
   border-radius: 4px;
   object-fit: cover;
   border: 6px solid var(--surface);
@@ -261,7 +357,15 @@ a:focus-visible,
 
 section {
   padding: 48px 0;
-  border-top: 1px solid var(--line);
+}
+
+/* The old site's dotted rule, kept between sections. */
+section::before {
+  content: "";
+  display: block;
+  width: 54px;
+  margin: 0 auto 56px;
+  border-top: 6px dotted var(--edge);
 }
 
 .section-intro {
@@ -292,6 +396,54 @@ section {
 
 .card:nth-child(-n + 3) {
   border-left-color: var(--accent);
+}
+
+.card {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card h3 {
+  padding-right: 44px;
+}
+
+.card-icon {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 1.05rem;
+  transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1), opacity 0.2s ease;
+}
+
+@media (hover: hover) {
+  .card-icon {
+    opacity: 0;
+    transform: scale(0.5) rotate(25deg);
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-4px) rotate(-0.35deg);
+    box-shadow: 6px 8px 0 -1px var(--accent-soft);
+  }
+
+  .card:nth-child(even):hover,
+  .card:nth-child(even):focus-within {
+    transform: translateY(-4px) rotate(0.35deg);
+  }
+
+  .card:hover .card-icon,
+  .card:focus-within .card-icon {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
 }
 
 .card .kicker {
@@ -442,6 +594,10 @@ section {
 
 /* Footer */
 
+.site-footer nav a i {
+  margin-right: 4px;
+}
+
 .site-footer {
   border-top: 1px solid var(--line);
   padding: 32px 0 48px;
@@ -462,9 +618,39 @@ section {
   flex-wrap: wrap;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 @media (max-width: 720px) {
   .hero {
-    padding-top: 40px;
+    padding-top: 32px;
+  }
+
+  .me {
+    order: -1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .me figcaption {
+    margin: 0;
+    transform: rotate(-4deg);
+  }
+
+  .me figcaption::before {
+    content: "← ";
+  }
+
+  .scenery {
+    margin-top: 24px;
   }
 
   .hero .wrap {
@@ -472,7 +658,6 @@ section {
   }
 
   .hero img {
-    order: -1;
     width: 112px;
     height: 128px;
     margin-top: 0;

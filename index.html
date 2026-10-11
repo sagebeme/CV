@@ -8,7 +8,8 @@
     <link rel="icon" type="image/x-icon" href="image/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="css/site.css">
   </head>
   <body>
@@ -30,6 +31,7 @@
       <div class="hero">
         <div class="wrap">
           <div>
+            <p class="hello">Hey, I'm Sage.</p>
             <h1>Full-stack engineer who builds the parts that <span class="mark">have to be right</span>.</h1>
             <p class="lede">TypeScript and Python. Payment flows, data pipelines and AI agents, shipped end to end with tests that decide what goes out.</p>
             <ul class="meta">
@@ -41,9 +43,22 @@
               <a class="btn" href="https://github.com/sagebeme">GitHub</a>
               <a class="btn" href="mailto:eudicas5k@gmail.com">Email me</a>
             </div>
+            <a class="aside" href="beginner/index.html">…or play a little game I made</a>
           </div>
-          <img src="image/sagebeme.png" alt="Sage Macharia" width="168" height="168">
+          <figure class="me">
+            <img src="image/sagebeme.png" alt="Sage Macharia" width="176" height="200">
+            <figcaption>that's me</figcaption>
+          </figure>
         </div>
+        <svg class="scenery" viewBox="0 0 960 150" aria-hidden="true" focusable="false">
+          <g class="cloud cloud-a"><path d="M128 50c-3-11 10-17 17-9 4-11 20-12 23-1 11-2 16 10 8 14-11 3-38 3-48-4z"/></g>
+          <g class="cloud cloud-b"><path d="M688 34c-1-8 8-12 13-6 3-9 15-9 17 0 8-1 11 7 6 11-8 1-30 2-36-5z"/></g>
+          <circle class="sun" cx="792" cy="62" r="19"/>
+          <path class="ridge-back" d="M0 128 C70 116 120 104 190 108 S300 92 352 96 S470 112 540 102 S650 84 720 98 S860 116 960 108"/>
+          <path class="ridge" d="M0 142 C80 138 150 128 220 130 C280 132 318 118 350 104 L381 66 L390 72 L402 42 L413 64 L426 57 L446 86 C470 106 520 120 600 124 C690 128 760 120 830 128 C880 134 920 136 960 136"/>
+          <path class="snow" d="M384 70 L402 46 L410 64 M402 46 L399 58 M413 64 L424 60"/>
+          <path class="hatch" d="M366 108 l-6 10 M376 100 l-8 14 M386 96 l-7 16 M432 82 l5 12 M441 90 l4 10 M453 98 l4 9"/>
+        </svg>
       </div>
 
       <section id="work">
@@ -53,6 +68,7 @@
 
           <div class="projects">
             <article class="card">
+              <span class="card-icon" aria-hidden="true"><i class="fa-solid fa-wallet"></i></span>
               <p class="kicker">Client build · 2026</p>
               <h3>Custodial wallet &amp; trading platform</h3>
               <ul class="tags">
@@ -68,6 +84,7 @@
             </article>
 
             <article class="card">
+              <span class="card-icon" aria-hidden="true"><i class="fa-solid fa-house-chimney"></i></span>
               <p class="kicker">Product · 2026</p>
               <h3>Nyumbani Manager: rentals in Kenya</h3>
               <ul class="tags">
@@ -82,6 +99,7 @@
             </article>
 
             <article class="card">
+              <span class="card-icon" aria-hidden="true"><i class="fa-solid fa-chart-line"></i></span>
               <p class="kicker">Product · 2026</p>
               <h3>Trading academy &amp; paid journal</h3>
               <ul class="tags">
@@ -96,6 +114,7 @@
             </article>
 
             <article class="card">
+              <span class="card-icon" aria-hidden="true"><i class="fa-solid fa-user-secret"></i></span>
               <p class="kicker">Open course · 2026</p>
               <h3>Prompt to Payload</h3>
               <ul class="tags">
@@ -109,6 +128,7 @@
             </article>
 
             <article class="card">
+              <span class="card-icon" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span>
               <p class="kicker">Edtech · 2026</p>
               <h3>MasomoGPT</h3>
               <ul class="tags">
@@ -122,6 +142,7 @@
             </article>
 
             <article class="card">
+              <span class="card-icon" aria-hidden="true"><i class="fa-solid fa-seedling"></i></span>
               <p class="kicker">Frontend developer · 2025</p>
               <h3>Verido: agricultural supply chains</h3>
               <ul class="tags">
@@ -237,9 +258,10 @@
       <div class="wrap">
         <span>© 2026 Sage Macharia</span>
         <nav aria-label="Elsewhere">
-          <a href="https://github.com/sagebeme">GitHub</a>
-          <a href="https://www.linkedin.com/in/sage-macharia/">LinkedIn</a>
-          <a href="beginner/index.html">A small game I made</a>
+          <a href="https://github.com/sagebeme"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+          <a href="https://www.linkedin.com/in/sage-macharia/"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+          <a href="https://twitter.com/Sage_beMe"><i class="fa-brands fa-twitter" aria-hidden="true"></i> @Sage_beMe</a>
+          <a href="beginner/index.html"><i class="fa-solid fa-gamepad" aria-hidden="true"></i> A small game I made</a>
         </nav>
       </div>
     </footer>
