@@ -219,6 +219,25 @@ a:focus-visible,
   color: var(--accent);
 }
 
+/* A pen loop drawn round the caption: it overshoots where it closes, like a real one. */
+.circled {
+  position: relative;
+  display: inline-block;
+  padding: 2px 10px;
+}
+
+.circled svg {
+  position: absolute;
+  inset: -6px -10px -4px -8px;
+  width: calc(100% + 18px);
+  height: calc(100% + 10px);
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  overflow: visible;
+}
+
 /* Hand-drawn hills under the hero: a nod to the old mountain, in the new palette. */
 .scenery {
   display: block;
