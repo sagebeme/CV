@@ -1,25 +1,33 @@
+/* Palette: warm paper, brown-black ink, red ochre (laterite soil) and one
+   slate blue used sparingly. Neutrals lean warm so the ochre carries meaning. */
 :root {
-  --bg: #fbfaf7;
-  --surface: #ffffff;
-  --text: #1b1d1f;
-  --muted: #5b6168;
-  --line: #e4e1da;
-  --accent: #0f6e56;
-  --accent-soft: #e3f1ec;
-  --radius: 10px;
+  --bg: #f3ede2;
+  --surface: #fbf7ef;
+  --text: #221d18;
+  --muted: #64594e;
+  --line: #ddd2c1;
+  --edge: #b9ab96;
+  --accent: #b4441f;
+  --accent-soft: #f0dccb;
+  --slate: #2f4157;
+  --radius: 6px;
   --wrap: 960px;
+  --grain: 0.06;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #121416;
-    --surface: #1a1d20;
-    --text: #e9e7e2;
-    --muted: #a3a9b0;
-    --line: #2c3035;
-    --accent: #5cc8a5;
-    --accent-soft: #1d302a;
+    --bg: #1a1714;
+    --surface: #221e1a;
+    --text: #ece4d8;
+    --muted: #a89c8e;
+    --line: #362f28;
+    --edge: #4f4539;
+    --accent: #e07a4f;
+    --accent-soft: #3a2519;
+    --slate: #9fb3cc;
+    --grain: 0.09;
     color-scheme: dark;
   }
 }
@@ -42,6 +50,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Paper grain over everything, so flat colour doesn't read as plastic. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 h1,
 h2,
 h3 {
@@ -51,13 +70,34 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(2.1rem, 5vw, 3rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  letter-spacing: -0.025em;
+}
+
+/* A hand-laid highlighter stroke: uneven, a little off the baseline. */
+.mark {
+  background: linear-gradient(176deg, transparent 52%, var(--accent-soft) 53%, var(--accent-soft) 88%, transparent 90%);
+  padding: 0 0.08em;
+  margin: 0 -0.04em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 h2 {
   font-size: 1.5rem;
   margin-bottom: 1.25rem;
+}
+
+/* Short ochre tick before section headings, thicker than the rules around it. */
+section h2::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 4px;
+  margin-bottom: 14px;
+  background: var(--accent);
+  border-radius: 2px 1px 3px 1px;
+  transform: rotate(-1.5deg);
 }
 
 h3 {
@@ -140,14 +180,14 @@ a:focus-visible,
 /* Hero */
 
 .hero {
-  padding: 64px 0 48px;
+  padding: 72px 0 56px;
 }
 
 .hero .wrap {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 40px;
-  align-items: center;
+  gap: 56px;
+  align-items: start;
 }
 
 .hero .lede {
@@ -157,11 +197,14 @@ a:focus-visible,
 }
 
 .hero img {
-  width: 168px;
-  height: 168px;
-  border-radius: 50%;
+  width: 176px;
+  height: 200px;
+  margin-top: 28px;
+  border-radius: 4px;
   object-fit: cover;
-  border: 1px solid var(--line);
+  border: 6px solid var(--surface);
+  box-shadow: 10px 12px 0 -2px var(--accent-soft), 0 1px 0 1px var(--edge);
+  transform: rotate(2.2deg);
 }
 
 .meta {
@@ -194,10 +237,24 @@ a:focus-visible,
   font-weight: 500;
 }
 
+.btn {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--edge);
+}
+
+.btn:hover {
+  border-color: var(--text);
+}
+
 .btn.primary {
   background: var(--accent);
   border-color: var(--accent);
+  border-bottom-color: color-mix(in srgb, var(--accent) 70%, var(--text));
   color: var(--bg);
+}
+
+.btn.primary:hover {
+  background: color-mix(in srgb, var(--accent) 88%, var(--text));
 }
 
 /* Sections */
@@ -227,19 +284,25 @@ section {
   flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 22px;
+  border-bottom: 2px solid var(--edge);
+  border-left: 2px solid var(--edge);
+  border-radius: var(--radius) 3px var(--radius) 4px;
+  padding: 22px 22px 20px 24px;
+}
+
+.card:nth-child(-n + 3) {
+  border-left-color: var(--accent);
 }
 
 .card .kicker {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
+  letter-spacing: 0.08em;
+  color: var(--slate);
   margin-bottom: 6px;
 }
 
-.card ul {
+.card ul:not(.tags) {
   padding-left: 1.1em;
   margin: 0 0 1em;
 }
@@ -266,11 +329,12 @@ section {
 }
 
 .tags li {
-  font-size: 0.8rem;
-  background: var(--accent-soft);
-  color: var(--text);
-  padding: 2px 9px;
-  border-radius: 999px;
+  font-size: 0.78rem;
+  background: transparent;
+  color: var(--muted);
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
 }
 
 .also {
@@ -316,7 +380,8 @@ section {
 }
 
 .timeline .when {
-  color: var(--muted);
+  color: var(--slate);
+  font-family: "Space Grotesk", sans-serif;
   font-size: 0.95rem;
 }
 
@@ -369,7 +434,8 @@ section {
 
 .note {
   background: var(--accent-soft);
-  border-radius: var(--radius);
+  border-left: 3px solid var(--accent);
+  border-radius: 2px var(--radius) var(--radius) 2px;
   padding: 14px 18px;
   font-size: 0.95rem;
 }
@@ -408,7 +474,8 @@ section {
   .hero img {
     order: -1;
     width: 112px;
-    height: 112px;
+    height: 128px;
+    margin-top: 0;
   }
 
   .projects,
