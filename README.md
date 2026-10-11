@@ -1,15 +1,20 @@
-# Personal Site
+# Sage Macharia: portfolio
 
-My personal landing page — an intro, a quick skills/contact section, and a small interactive game page. Built with plain HTML/CSS/JS as an early web-dev project and personal home base, linked from my [GitHub profile](https://github.com/sagebeme) and [profile README](https://github.com/sagebeme/sagebeme).
+My portfolio site: selected work, how I work, experience and contact. It's for people hiring a full-stack engineer.
 
-**Live:** [sagebeme.github.io/CV](https://sagebeme.github.io/CV)
+**Live:** [sagebeme.github.io/CV](https://sagebeme.github.io/CV/)
 
 ## Structure
 
-- `index.html` — landing page (intro, skills, contact)
-- `beginner/` — small interactive game
-- `css/`, `image/` — styling and assets
+- `index.html`: the home page
+- `work/`: case studies for projects whose code is private (trading platform, rental platform, trading academy)
+- `css/site.css`: all styles. Colours are tokens on `:root`, with a dark theme that follows the system setting
+- `image/`: profile photo and favicon
+- `beginner/`: a small browser game from my early web-dev days
+- `react.html`: an old link, kept as a redirect to the projects section
+
+Plain HTML and CSS, with no build step and no JavaScript. GitHub Pages serves the `Deproject` branch.
 
 ## Running locally
 
-Open `index.html` directly in a browser, or serve the folder with any static file server.
+Open `index.html` in a browser, or run `python3 -m http.server` in this folder and visit http://localhost:8000.

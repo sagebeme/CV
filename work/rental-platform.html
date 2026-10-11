@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rental Platform Case Study — Sage Macharia</title>
+    <meta name="description" content="Case study: Nyumbani Manager, a Kenyan rental platform in React and Supabase, with database access rules tested as real SQL and mutation-checked.">
+    <link rel="icon" type="image/x-icon" href="../image/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/site.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="../">Sage Macharia</a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="../#work">Work</a>
+          <a href="../#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="case">
+      <div class="wrap">
+        <a class="back" href="../#work">← All work</a>
+        <h1>Nyumbani Manager: rentals in Kenya</h1>
+        <ul class="tags">
+          <li>React</li><li>TypeScript</li><li>Vite</li><li>Tailwind</li><li>Supabase</li><li>Postgres RLS</li><li>Vitest</li><li>Playwright</li>
+        </ul>
+
+        <div class="prose">
+          <p class="note">In active development in 2026. The repository is private; this page describes the design.</p>
+
+          <h2>The problem</h2>
+          <p>In Kenya, finding a rental and running one happen in different places: listings on one site, rent tracked in a notebook or a WhatsApp thread. Nyumbani Manager does both. Tenants find a home and then see what they owe. Landlords list properties and then run their rent roll.</p>
+
+          <h2>What it does</h2>
+          <ul>
+            <li><strong>Search:</strong> by county, area, rent in shillings, size and amenities, with filters kept in the URL so a search can be shared.</li>
+            <li><strong>Tenants:</strong> link a tenancy with a landlord's invite code, then see what's due and when, a "your rent is late" banner, payment history, receipts and the deposit held.</li>
+            <li><strong>Landlords:</strong> a monthly rent page in Nairobi time, a rent roll with status, balance and days overdue, arrears ageing, a six-month collection chart, CSV export, a printable statement, and reminders ready to paste into WhatsApp or SMS.</li>
+            <li><strong>Admins:</strong> moderate listings, verify landlords and read the audit log. They deliberately <em>cannot</em> see tenancies or payments.</li>
+          </ul>
+
+          <h2>Security lives in the database</h2>
+          <p>With Supabase the browser talks to Postgres directly, so row-level security is the real permission system. Getting it wrong leaks one tenant's rent to another. I treated those rules as the most important code in the project:</p>
+          <ul>
+            <li>All 12 migrations are applied to an embedded Postgres in the test suite. More than 200 database tests then run real SQL <em>as</em> each kind of user (signed-out visitor, tenant, another tenant, landlord, admin) and check what each can read and write.</li>
+            <li>A mutation check proves the tests have teeth. It copies the migrations, breaks one protection at a time, and fails if the suite still passes.</li>
+            <li>Money is stored in cents, and rent maths lives in small pure functions with their own unit tests.</li>
+          </ul>
+
+          <h2>How it was built</h2>
+          <ul>
+            <li>CI on every pull request: typecheck, lint, unit tests, database tests and build, then Playwright journeys.</li>
+            <li>axe accessibility checks on every main screen at phone and desktop width.</li>
+            <li>Every user-visible string is kept in one place so a Swahili translation can be added beside it.</li>
+            <li>An honest scope line in the README: rent tracking is a record, not a payment service, and no money moves through the app yet.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© 2026 Sage Macharia</span>
+        <nav aria-label="Elsewhere">
+          <a href="mailto:eudicas5k@gmail.com">Email</a>
+          <a href="https://github.com/sagebeme">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

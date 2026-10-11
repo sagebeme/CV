@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trading Platform Case Study — Sage Macharia</title>
+    <meta name="description" content="Case study: a custodial wallet and trading platform in NestJS and Next.js, with M-Pesa deposits, a single ledger, reconciliation and live WebSocket prices.">
+    <link rel="icon" type="image/x-icon" href="../image/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/site.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="../">Sage Macharia</a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="../#work">Work</a>
+          <a href="../#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="case">
+      <div class="wrap">
+        <a class="back" href="../#work">← All work</a>
+        <h1>Custodial wallet &amp; trading platform</h1>
+        <ul class="tags">
+          <li>NestJS</li><li>Next.js</li><li>TypeScript</li><li>Postgres</li><li>TypeORM</li><li>WebSockets</li><li>M-Pesa Daraja</li><li>Docker</li>
+        </ul>
+
+        <div class="prose">
+          <p class="note">Built for a client in 2026. The code is private, so this page describes the design instead. It is pre-launch: real-money payments are built but switched off until licensing is settled.</p>
+
+          <h2>The problem</h2>
+          <p>Customers hold a wallet on the platform, top it up from their phone, and trade short contracts on live synthetic indices, by hand or through an automated bot. The platform is the counterparty on every trade. That makes it a money system before it is a trading app: every shilling has to be accounted for, under retries, timeouts and two admins clicking at once.</p>
+
+          <h2>What I built</h2>
+          <ul>
+            <li><strong>One ledger, one door for money.</strong> Deposits, trade stakes, payouts and adjustments all go through the same ledger service. A debit locks the wallet row, re-checks the balance and appends the entry in a single transaction, which closed a check-then-debit race in an earlier version.</li>
+            <li><strong>M-Pesa deposits and withdrawals.</strong> STK Push and status queries behind a payment-gateway interface, with a fake gateway for development and CI. Settlement matches the provider's reference under a lock and is idempotent, so a repeated callback can't credit twice. A withdrawal that fails downstream is reversed with its own ledger entry.</li>
+            <li><strong>Currency quotes that can't drift.</strong> The customer sees a live KES to USD quote as they type. The server re-quotes on submit and records the exact rate and credited amount on the payment.</li>
+            <li><strong>Reconciliation.</strong> Every 15 minutes a job compares ledger totals with the live balance and flags any drift. Admins can also run it on demand.</li>
+            <li><strong>Maker-checker approvals.</strong> Withdrawal approvals and balance adjustments don't apply when the first admin clicks. They file a request that takes effect only when a different admin approves it.</li>
+            <li><strong>Risk controls.</strong> A kill switch plus per-customer, per-symbol and platform-wide exposure caps, checked inside the same locked transaction that accepts a trade. The bot checks the kill switch on every tick and stops after repeated rejections instead of retrying forever.</li>
+            <li><strong>Live prices.</strong> 13 instruments, one upstream WebSocket subscription per symbol, fanned out to every connected browser. The line and candlestick charts are hand-written SVG: history is backfilled over REST and the current candle updates from the same tick stream. No charting library.</li>
+            <li><strong>KYC.</strong> Document upload to local disk or S3-compatible storage, retention rules, and an audit-log entry every time an admin opens a document.</li>
+          </ul>
+
+          <h2>A detail I'm glad I caught</h2>
+          <p>Access tokens last 15 minutes and several screens poll, so many tabs hit an expired token at the same moment. Refresh tokens are single-use by design, so two parallel refreshes would burn each other and log the customer out. The fix was to make the client's refresh single-flight: one refresh, and every waiting request replays with the new token. A test keeps that behaviour in place.</p>
+
+          <h2>How it was built</h2>
+          <ul>
+            <li>NestJS API with one module per responsibility (auth, trading, payments, fx, risk, bot, kyc, admin) and a Next.js App Router front end.</li>
+            <li>Jest unit and end-to-end tests on the API, Vitest on the web app, all in CI.</li>
+            <li>An architecture document that records what is actually true today, including the parts that are easy to assume otherwise.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© 2026 Sage Macharia</span>
+        <nav aria-label="Elsewhere">
+          <a href="mailto:eudicas5k@gmail.com">Email</a>
+          <a href="https://github.com/sagebeme">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trading Academy Case Study — Sage Macharia</title>
+    <meta name="description" content="Case study: a trading-education platform in React and Supabase with a paid trading journal, database-enforced access and accessibility tests.">
+    <link rel="icon" type="image/x-icon" href="../image/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/site.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="../">Sage Macharia</a>
+        <nav class="site-nav" aria-label="Main">
+          <a href="../#work">Work</a>
+          <a href="../#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="case">
+      <div class="wrap">
+        <a class="back" href="../#work">← All work</a>
+        <h1>Trading academy &amp; paid journal</h1>
+        <ul class="tags">
+          <li>React</li><li>TypeScript</li><li>React Router</li><li>Supabase</li><li>Postgres RLS</li><li>Edge Functions</li><li>Vitest</li><li>Playwright</li><li>axe</li>
+        </ul>
+
+        <div class="prose">
+          <p class="note">Built in 2026. The repository is private and the site is pre-launch; taking payments is the next piece of work.</p>
+
+          <h2>The product</h2>
+          <p>A course platform for students, teachers and admins, with two written courses: a free foundations course and a paid course. Between them there are 19 lessons, 68 graphics and 12 Excel workbooks. Alongside the courses is a trading journal, sold as a paid feature.</p>
+
+          <h2>The journal</h2>
+          <ul>
+            <li>A five-step quick log, screenshots, a dashboard built around three questions a trader actually asks, weekly reviews, a psychology tracker, a bias review and a backtest mode.</li>
+            <li>CSV import and export. Reading and exporting your own data is never locked, even when your access lapses.</li>
+            <li>A free tier (20 trades by default, set by an admin), then paid access through an entitlements table, with an admin screen to unlock it by hand until payments exist.</li>
+            <li>Journal data is private to its owner. Admins and teachers can't read it, and the database enforces that, not the UI.</li>
+          </ul>
+
+          <h2>Access the database decides</h2>
+          <ul>
+            <li>Paid lesson text lives only in the database and is served only to enrolled students. A production build contains none of the demo data or paid text.</li>
+            <li>48 access-rule and account-deletion checks run every migration against a real Postgres, in CI.</li>
+            <li>Admin actions that need elevated rights, like inviting and deleting users, run in a Supabase Edge Function rather than the browser.</li>
+          </ul>
+
+          <h2>Quality</h2>
+          <ul>
+            <li>WCAG 2.1 AA checks with axe in end-to-end tests, in light and dark mode, at phone and desktop width.</li>
+            <li>End-to-end journeys for students, teachers and admins.</li>
+            <li>A reviewed course: maths checked, facts checked and a 73-point lesson audit.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© 2026 Sage Macharia</span>
+        <nav aria-label="Elsewhere">
+          <a href="mailto:eudicas5k@gmail.com">Email</a>
+          <a href="https://github.com/sagebeme">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
