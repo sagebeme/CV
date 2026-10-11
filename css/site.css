@@ -219,6 +219,25 @@ a:focus-visible,
   color: var(--accent);
 }
 
+/* Two quick pen strokes under the caption, the second one shorter. */
+.underlined {
+  position: relative;
+  display: inline-block;
+}
+
+.underlined svg {
+  position: absolute;
+  left: -4px;
+  right: -6px;
+  bottom: -9px;
+  width: calc(100% + 10px);
+  height: 11px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
 /* Hand-drawn hills under the hero: a nod to the old mountain, in the new palette. */
 .scenery {
   display: block;
