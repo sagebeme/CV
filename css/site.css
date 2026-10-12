@@ -13,6 +13,8 @@
   --radius: 6px;
   --wrap: 960px;
   --grain: 0.06;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  --header: color-mix(in srgb, var(--bg) 86%, transparent);
   color-scheme: light;
 }
 
@@ -30,6 +32,11 @@
     --grain: 0.09;
     color-scheme: dark;
   }
+}
+
+@keyframes twinkle {
+  from { opacity: 0.25; }
+  to { opacity: 0.95; }
 }
 
 *,
@@ -134,6 +141,22 @@ a:focus-visible,
   border-bottom: 1px solid var(--line);
 }
 
+/* On wider screens the header stays put. On phones it wraps to two rows, so it scrolls away. */
+@media (min-width: 721px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--header);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
+section[id] {
+  scroll-margin-top: 64px;
+}
+
 .site-header .wrap {
   display: flex;
   align-items: center;
@@ -164,6 +187,14 @@ a:focus-visible,
 
 .site-nav a:hover {
   color: var(--text);
+}
+
+/* The section you're reading gets a short, slightly crooked pen stroke. */
+.site-nav a[aria-current] {
+  color: var(--text);
+  background: no-repeat left 0 bottom -1px / 100% 7px
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c22-3 50-4 96-1' fill='none' stroke='%23b4441f' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  padding-bottom: 4px;
 }
 
 /* Hero */
@@ -279,6 +310,11 @@ a:focus-visible,
   stroke-dasharray: 90 8;
 }
 
+.scenery .stars,
+.scenery .moon {
+  display: none;
+}
+
 .scenery .cloud path {
   fill: var(--surface);
   stroke: var(--muted);
@@ -291,6 +327,10 @@ a:focus-visible,
 
 .scenery .cloud-b {
   animation: drift 52s ease-in-out infinite alternate-reverse;
+}
+
+.proof {
+  padding: 40px 0 8px;
 }
 
 @keyframes drift {
@@ -322,15 +362,108 @@ a:focus-visible,
   transform: rotate(2.2deg);
 }
 
-.meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  color: var(--muted);
+/* What I'm doing this month, like a status line in a terminal. */
+.now {
+  max-width: 460px;
+  margin: 0 0 26px;
+  padding: 12px 16px 12px 18px;
+  border: 1px dashed var(--edge);
+  border-radius: 3px var(--radius) 4px var(--radius);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
   font-size: 0.95rem;
-  margin: 0 0 24px;
+}
+
+.now-label,
+.now .where {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin: 0 0 6px;
+}
+
+.now .where {
+  margin: 8px 0 0;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.now ul {
+  margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.now li::before {
+  content: "→ ";
+  color: var(--accent);
+  font-family: var(--mono);
+}
+
+.pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+  animation: pulse 2.4s ease-out infinite;
+  vertical-align: 1px;
+}
+
+@keyframes pulse {
+  70% { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+/* Three numbers, each one checkable in a case study. */
+.proof ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proof li {
+  display: grid;
+  gap: 4px;
+  padding-top: 12px;
+  border-top: 2px solid var(--edge);
+}
+
+.proof li:first-child {
+  border-top-color: var(--accent);
+}
+
+.proof strong {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.03em;
+}
+
+.proof span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.proof-note {
+  font-family: "Caveat", cursive;
+  font-size: 1.4rem;
+  color: var(--muted);
+  margin: 0 0 10px;
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+
+.proof-note::after {
+  content: " ↓";
+  color: var(--accent);
 }
 
 .actions {
@@ -466,9 +599,10 @@ section::before {
 }
 
 .card .kicker {
-  font-size: 0.78rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--slate);
   margin-bottom: 6px;
 }
@@ -500,6 +634,47 @@ section::before {
   cursor: pointer;
 }
 
+/* Two real screens from the live preview, dealt like photos onto the card. */
+.shots {
+  position: relative;
+  height: 0;
+  padding-bottom: 46%;
+  margin: 4px 0 18px;
+}
+
+.shots img {
+  position: absolute;
+  width: 74%;
+  height: auto;
+  border: 4px solid var(--bg);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 1px var(--edge), 5px 6px 0 -1px var(--accent-soft);
+  transition: transform 0.3s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.shots img:first-child {
+  left: 0;
+  top: 0;
+  transform: rotate(-1.6deg);
+  z-index: 1;
+}
+
+.shots img:last-child {
+  right: 0;
+  top: 10%;
+  transform: rotate(2.4deg);
+}
+
+@media (hover: hover) {
+  .card:hover .shots img:first-child {
+    transform: rotate(-3deg) translate(-6px, -3px);
+  }
+
+  .card:hover .shots img:last-child {
+    transform: rotate(4deg) translate(6px, 4px);
+  }
+}
+
 .card .links {
   margin-top: auto;
   display: flex;
@@ -518,7 +693,8 @@ section::before {
 }
 
 .tags li {
-  font-size: 0.78rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
   background: transparent;
   color: var(--muted);
   padding: 1px 8px;
@@ -570,8 +746,9 @@ section::before {
 
 .timeline .when {
   color: var(--slate);
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 0.95rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  padding-top: 3px;
 }
 
 .timeline p {
@@ -701,8 +878,13 @@ section::before {
   }
 
   .projects,
-  .principles {
+  .principles,
+  .proof ul {
     grid-template-columns: 1fr;
+  }
+
+  .site-nav {
+    gap: 14px;
   }
 
   .timeline li,
@@ -716,5 +898,51 @@ section::before {
 
   .skills dt {
     margin-top: 10px;
+  }
+}
+
+/* Night sky. Last in the file so it wins over the daytime scenery rules. */
+@media (prefers-color-scheme: dark) {
+  /* After dark the ridge gets a night sky: stars and a moon instead of the sun. */
+  .hero {
+    background: no-repeat top / 100% 100%
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 960 520' preserveAspectRatio='none'%3E%3Cg fill='%23ece4d8'%3E%3Ccircle cx='40' cy='60' r='1' opacity='.5'/%3E%3Ccircle cx='160' cy='22' r='.8' opacity='.35'/%3E%3Ccircle cx='300' cy='120' r='1' opacity='.3'/%3E%3Ccircle cx='520' cy='40' r='1.1' opacity='.45'/%3E%3Ccircle cx='610' cy='150' r='.8' opacity='.3'/%3E%3Ccircle cx='720' cy='30' r='1' opacity='.5'/%3E%3Ccircle cx='900' cy='90' r='1.2' opacity='.4'/%3E%3Ccircle cx='840' cy='220' r='.8' opacity='.3'/%3E%3Ccircle cx='70' cy='260' r='.9' opacity='.3'/%3E%3Ccircle cx='940' cy='300' r='1' opacity='.35'/%3E%3Ccircle cx='420' cy='12' r='.8' opacity='.4'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .scenery .sun {
+    display: none;
+  }
+
+  .scenery .stars,
+  .scenery .moon {
+    display: inline;
+  }
+
+  .scenery .stars {
+    fill: var(--text);
+    stroke: var(--text);
+    stroke-width: 1.1;
+  }
+
+  .scenery .stars > * {
+    animation: twinkle 3.6s ease-in-out infinite alternate;
+  }
+
+  .scenery .stars > :nth-child(3n) { animation-delay: -1.2s; }
+  .scenery .stars > :nth-child(3n + 1) { animation-delay: -2.5s; animation-duration: 4.4s; }
+
+  .scenery .moon {
+    fill: var(--accent-soft);
+    stroke: var(--accent);
+    stroke-width: 1.4;
+  }
+
+  .scenery .cloud path {
+    fill: var(--bg);
+    stroke: var(--edge);
+  }
+
+  .site-nav a[aria-current] {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c22-3 50-4 96-1' fill='none' stroke='%23e07a4f' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E");
   }
 }
